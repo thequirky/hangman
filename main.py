@@ -17,7 +17,9 @@ def choose_random_word() -> str:
             word = line.strip().split("'")[0].upper()
             words.append(word)
     chosen_word = random.choice(words)
-    return chosen_word
+    if len(chosen_word) > 2:
+        return chosen_word
+    return choose_random_word()
 
 
 def display_hidden_word(word: str, correct_guesses: str) -> None:

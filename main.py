@@ -43,7 +43,7 @@ def game(nb_guesses: int = NB_GUESSES):
     guesses_left = nb_guesses
     incorrect_guesses = []
     correct_guesses = []
-    letters_found = 0
+    nb_letters_found = 0
     word = choose_random_word()
 
     while True:
@@ -55,9 +55,9 @@ def game(nb_guesses: int = NB_GUESSES):
         guess = get_letter()
         if guess in word:
             correct_guesses.append(guess)
-            letters_found += word.count(guess)
+            nb_letters_found += word.count(guess)
 
-            if letters_found == len(word):
+            if nb_letters_found == len(word):
                 print(f"\nCongrats, you found the word! The word was {word}!!!\n")
                 break
         else:

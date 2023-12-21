@@ -4,6 +4,7 @@ import os
 
 VALID_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 DICTIONARY_PATH = "/usr/share/dict/words"
+NB_GUESSES = 10
 
 
 def clear_screen() -> None:
@@ -20,19 +21,19 @@ def choose_random_word() -> str:
     return chosen_word
 
 
-def display_hidden_word(word: str, correct_guesses: str = None) -> str:
+def display_hidden_word(word: str, correct_guesses: str) -> None:
     revealed = ""
     for letter in word:
         if letter in correct_guesses:
             revealed += letter + " "
         else:
             revealed += "_ "
-    return revealed
+    print(revealed)
 
 
 def get_letter() -> str:
     while True:
-        guess = input("Guess a letter -> ")
+        guess = input("Guess a letter: ")
         if len(guess) == 1:
             if guess in VALID_LETTERS or guess in VALID_LETTERS.lower():
                 return guess.upper()
@@ -43,20 +44,19 @@ def is_letter_in_word(letter: str, word: str) -> bool:
     return letter in word
 
 
-def game(nb_guesses: int = 10):
+def game(nb_guesses: int = NB_GUESSES):
     guesses_left = nb_guesses
     incorrect_guesses = []
     correct_guesses = []
     letters_found = 0
     word = choose_random_word()
-    # word = "FIREPLACE"
+    # buggy_words = ["FIREPLACE", "FITTINGLY"]
 
     while True:
         clear_screen()
-        print(display_hidden_word(word, correct_guesses))
-        print("\n")
+        display_hidden_word(word, correct_guesses)
         print(
-            f"{guesses_left} guesses left. Already guessed: {', '.join(incorrect_guesses)}."
+            f"\n{guesses_left} guesses left. Already guessed: {', '.join(incorrect_guesses)}"
         )
         print("\n")
         guess = get_letter()
@@ -67,7 +67,6 @@ def game(nb_guesses: int = 10):
             if letters_found == len(word):
                 print(f"\nCongrats, you found the word! The word was {word}!!!\n")
                 break
-            print("Good guess!")
         else:
             if guess not in incorrect_guesses:
                 incorrect_guesses.append(guess)
@@ -75,7 +74,6 @@ def game(nb_guesses: int = 10):
             if guesses_left == 0:
                 print(f"\nNo guesses left... Game over... The word was {word}...\n")
                 break
-            print("Nope...")
 
 
 if __name__ == "__main__":

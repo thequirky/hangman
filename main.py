@@ -63,7 +63,7 @@ def game(nb_guesses: int = NB_GUESSES):
         else:
             if guess not in incorrect_guesses:
                 incorrect_guesses.append(guess)
-            guesses_left -= 1
+                guesses_left -= 1
             if guesses_left == 0:
                 print(f"\nNo guesses left... Game over... The word was {word}...\n")
                 break

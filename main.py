@@ -50,9 +50,8 @@ def game(nb_guesses: int = NB_GUESSES):
         clear_screen()
         display_hidden_word(word, correct_guesses)
         print(
-            f"\n{guesses_left} guesses left. Already guessed: {', '.join(incorrect_guesses)}"
+            f"\n{guesses_left} guesses left. Already guessed: {', '.join(incorrect_guesses)}\n"
         )
-        print("\n")
         guess = get_letter()
         if guess in word:
             correct_guesses.append(guess)

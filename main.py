@@ -39,7 +39,7 @@ def get_letter() -> str:
         print("Invalid guess... use letters only...")
 
 
-def game(nb_guesses: int = NB_GUESSES):
+def hangman(nb_guesses: int = NB_GUESSES):
     guesses_left = nb_guesses
     incorrect_guesses = []
     correct_guesses = []
@@ -70,4 +70,4 @@ def game(nb_guesses: int = NB_GUESSES):
 
 
 if __name__ == "__main__":
-    game()
+    hangman()

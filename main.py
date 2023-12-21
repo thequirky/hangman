@@ -1,10 +1,9 @@
 import random
 import os
 
+from config import DICTIONARY_PATH, NB_GUESSES, VALID_LETTERS
 
-VALID_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-DICTIONARY_PATH = "/usr/share/dict/words"
-NB_GUESSES = 10
+# buggy_words = ["FIREPLACE", "FITTINGLY"]
 
 
 def clear_screen() -> None:
@@ -50,7 +49,6 @@ def game(nb_guesses: int = NB_GUESSES):
     correct_guesses = []
     letters_found = 0
     word = choose_random_word()
-    # buggy_words = ["FIREPLACE", "FITTINGLY"]
 
     while True:
         clear_screen()

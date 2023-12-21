@@ -1,7 +1,7 @@
 import random
 import os
 
-from config import DICTIONARY_PATH, NB_GUESSES, VALID_LETTERS
+from config import DICTIONARY, NB_GUESSES, VALID_LETTERS
 
 # buggy_words = ["FIREPLACE", "FITTINGLY"]
 
@@ -12,7 +12,7 @@ def clear_screen() -> None:
 
 def choose_random_word() -> str:
     words = []
-    with open(DICTIONARY_PATH) as f:
+    with open(DICTIONARY) as f:
         for line in f:
             word = line.strip().split("'")[0].upper()
             words.append(word)

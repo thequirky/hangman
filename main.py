@@ -39,10 +39,6 @@ def get_letter() -> str:
         print("Invalid guess... use letters only...")
 
 
-def is_letter_in_word(letter: str, word: str) -> bool:
-    return letter in word
-
-
 def game(nb_guesses: int = NB_GUESSES):
     guesses_left = nb_guesses
     incorrect_guesses = []
@@ -58,7 +54,7 @@ def game(nb_guesses: int = NB_GUESSES):
         )
         print("\n")
         guess = get_letter()
-        if is_letter_in_word(guess, word):
+        if guess in word:
             correct_guesses.append(guess)
             letters_found += word.count(guess)
 

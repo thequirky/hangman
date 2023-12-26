@@ -3,8 +3,6 @@ import os
 
 from config import DICTIONARY, NB_GUESSES, VALID_LETTERS
 
-# buggy_words = ["FIREPLACE", "FITTINGLY"]
-
 
 def clear_screen() -> None:
     os.system("clear")
@@ -41,12 +39,12 @@ def get_letter() -> str:
         print("Invalid guess... Use letters only.")
 
 
-def hangman(nb_guesses: int = NB_GUESSES):
+def hangman(nb_guesses: int = NB_GUESSES, with_word: str = None):
     guesses_left = nb_guesses
     incorrect_guesses = []
     correct_guesses = []
     nb_letters_found = 0
-    word = choose_random_word()
+    word = with_word or choose_random_word()
 
     while True:
         clear_screen()
@@ -72,4 +70,6 @@ def hangman(nb_guesses: int = NB_GUESSES):
 
 
 if __name__ == "__main__":
+    # buggy_words = ["FIREPLACE", "FITTINGLY"]
+    # hangman(with_word="FIREPLACE")  # bug: F,I,R,E,P,L,E
     hangman()

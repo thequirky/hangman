@@ -38,7 +38,7 @@ def get_letter() -> str:
         if len(guess) == 1:
             if guess in VALID_LETTERS or guess in VALID_LETTERS.lower():
                 return guess.upper()
-        print("Invalid guess... use letters only...")
+        print("Invalid guess... Use letters only.")
 
 
 def hangman(nb_guesses: int = NB_GUESSES):

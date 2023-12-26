@@ -71,5 +71,5 @@ def hangman(nb_guesses: int = NB_GUESSES, with_word: str = None):
 
 if __name__ == "__main__":
     # buggy_words = ["FIREPLACE", "FITTINGLY"]
-    # hangman(with_word="FIREPLACE")  # bug: F,I,R,E,P,L,E
+    # hangman(with_word="FIREPLACE")  # bug with guesses: F,I,R,E,P,L,E
     hangman()

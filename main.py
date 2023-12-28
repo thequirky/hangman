@@ -44,7 +44,7 @@ def hangman(nb_guesses: int = NB_GUESSES, with_word: str = None):
     incorrect_guesses = []
     correct_guesses = []
     nb_letters_found = 0
-    word = with_word or choose_random_word()
+    word = with_word.upper() or choose_random_word()
 
     while True:
         clear_screen()
@@ -57,20 +57,18 @@ def hangman(nb_guesses: int = NB_GUESSES, with_word: str = None):
             if guess not in correct_guesses:
                 correct_guesses.append(guess)
                 nb_letters_found += word.count(guess)
-
             if nb_letters_found == len(word):
-                print(f"\nCongrats, you found the word! The word was {word}!!!\n")
+                print(f"\nCongrats, you found the word! The word was {word}.\n")
                 break
         else:
             if guess not in incorrect_guesses:
                 incorrect_guesses.append(guess)
                 guesses_left -= 1
             if guesses_left == 0:
-                print(f"\nNo guesses left... Game over... The word was {word}...\n")
+                print(f"\nNo guesses left... Game over... The word was {word}.\n")
                 break
 
 
 if __name__ == "__main__":
-    # buggy_words = ["FIREPLACE", "FITTINGLY"]
-    # hangman(with_word="FIREPLACE")  # bug with guesses: F,I,R,E,P,L,E
+    # hangman(with_word="FIREPLACE")
     hangman()

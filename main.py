@@ -14,10 +14,10 @@ def choose_random_word() -> str:
         for line in f:
             word = line.strip().split("'")[0].upper()
             words.append(word)
-    chosen_word = random.choice(words)
-    if len(chosen_word) > 2:
-        return chosen_word
-    return choose_random_word()
+    while True:
+        chosen_word = random.choice(words)
+        if len(chosen_word) > 2:
+            return chosen_word
 
 
 def display_hidden_word(word: str, correct_guesses: str) -> None:
@@ -39,7 +39,7 @@ def get_letter() -> str:
         print("Invalid guess... Use letters only.")
 
 
-def hangman(nb_guesses: int = NB_GUESSES, with_word: str = None):
+def hangman(nb_guesses: int = NB_GUESSES, with_word: str = ""):
     guesses_left = nb_guesses
     incorrect_guesses = []
     correct_guesses = []

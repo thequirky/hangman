@@ -25,7 +25,7 @@ def display_hidden_word(word: str, correct_guesses: str) -> None:
         if letter in correct_guesses:
             revealed += letter + " "
         else:
-            revealed += "_ "
+            revealed += "_" + " "
     print(revealed)
 
 

@@ -69,5 +69,5 @@ def hangman(nb_guesses: int = NB_GUESSES, with_word: str = ""):
 
 
 if __name__ == "__main__":
-    # hangman(with_word="FIREPLACE")
+    # hangman(with_word="fireplace")
     hangman()

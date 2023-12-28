@@ -54,8 +54,9 @@ def hangman(nb_guesses: int = NB_GUESSES, with_word: str = None):
         )
         guess = get_letter()
         if guess in word:
-            correct_guesses.append(guess)
-            nb_letters_found += word.count(guess)
+            if guess not in correct_guesses:
+                correct_guesses.append(guess)
+                nb_letters_found += word.count(guess)
 
             if nb_letters_found == len(word):
                 print(f"\nCongrats, you found the word! The word was {word}!!!\n")

@@ -13,11 +13,10 @@ def choose_random_word() -> str:
     with open(DICTIONARY) as f:
         for line in f:
             word = line.strip().split("'")[0].upper()
-            words.append(word)
-    while True:
-        chosen_word = random.choice(words)
-        if len(chosen_word) > 2:
-            return chosen_word
+            if len(word) > 3 and len(set(word)) > 1:
+                words.append(word)
+    chosen_word = random.choice(words)
+    return chosen_word
 
 
 def display_hidden_word(word: str, correct_guesses: str) -> None:

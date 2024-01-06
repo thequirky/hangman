@@ -1,7 +1,10 @@
 import random
 import os
 
-from config import DICTIONARY, NB_GUESSES, VALID_LETTERS
+
+VALID_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+DICTIONARY = "words.txt"
+NB_GUESSES = 10
 
 
 def clear_screen() -> None:
@@ -12,9 +15,9 @@ def choose_random_word() -> str:
     words = []
     with open(DICTIONARY) as f:
         for line in f:
-            word = line.strip().split("'")[0].upper()
-            if len(word) > 3 and len(set(word)) > 1:
-                words.append(word)
+            word = line.strip().split("'")[0]
+            if len(word) > 3 and len(set(word)) > 1 and word.capitalize() == word:
+                words.append(word.upper())
     return random.choice(words)
 
 

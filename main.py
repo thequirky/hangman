@@ -5,71 +5,77 @@ import os
 VALID_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 DICTIONARY = "words.txt"
 NB_GUESSES = 10
+WITH_WORD = ""
 
 
-def clear_screen() -> None:
-    os.system("clear")
+class Hangman:
+    def __init__(self) -> None:
+        self.guesses_left = NB_GUESSES
+        self.incorrect_guesses = []
+        self.correct_guesses = []
+        self.nb_letters_found = 0
+        self.word = WITH_WORD.upper() or self.choose_random_word()
 
+    @staticmethod
+    def clear_screen() -> None:
+        os.system("clear")
 
-def choose_random_word() -> str:
-    words = []
-    with open(DICTIONARY) as f:
-        for line in f:
-            word = line.strip().split("'")[0]
-            if len(word) > 3 and len(set(word)) > 1 and word.capitalize() == word:
-                words.append(word.upper())
-    return random.choice(words)
+    @staticmethod
+    def choose_random_word() -> str:
+        words = []
+        with open(DICTIONARY) as f:
+            for line in f:
+                word = line.strip().split("'")[0]
+                if len(word) > 3 and len(set(word)) > 1 and word.capitalize() == word:
+                    words.append(word.upper())
+        return random.choice(words)
 
+    def display_hidden_word(self) -> None:
+        revealed = ""
+        for letter in self.word:
+            if letter in self.correct_guesses:
+                revealed += letter + " "
+            else:
+                revealed += "_" + " "
+        print(revealed)
 
-def display_hidden_word(word: str, correct_guesses: str) -> None:
-    revealed = ""
-    for letter in word:
-        if letter in correct_guesses:
-            revealed += letter + " "
-        else:
-            revealed += "_" + " "
-    print(revealed)
+    @staticmethod
+    def get_letter() -> str:
+        while True:
+            guess = input("Guess a letter: ")
+            if len(guess) == 1:
+                if guess in VALID_LETTERS or guess in VALID_LETTERS.lower():
+                    return guess.upper()
+            print("Invalid guess... Use letters only.")
 
-
-def get_letter() -> str:
-    while True:
-        guess = input("Guess a letter: ")
-        if len(guess) == 1:
-            if guess in VALID_LETTERS or guess in VALID_LETTERS.lower():
-                return guess.upper()
-        print("Invalid guess... Use letters only.")
-
-
-def hangman(nb_guesses: int = NB_GUESSES, with_word: str = ""):
-    guesses_left = nb_guesses
-    incorrect_guesses = []
-    correct_guesses = []
-    nb_letters_found = 0
-    word = with_word.upper() or choose_random_word()
-
-    while True:
-        clear_screen()
-        display_hidden_word(word, correct_guesses)
-        print(
-            f"\n{guesses_left} guesses left. Already guessed: {', '.join(incorrect_guesses)}\n"
-        )
-        guess = get_letter()
-        if guess in word:
-            if guess not in correct_guesses:
-                correct_guesses.append(guess)
-                nb_letters_found += word.count(guess)
-            if nb_letters_found == len(word):
-                print(f"\nCongrats, you found the word! The word was {word}.\n")
-                break
-        else:
-            if guess not in incorrect_guesses:
-                incorrect_guesses.append(guess)
-                guesses_left -= 1
-            if guesses_left == 0:
-                print(f"\nNo guesses left... Game over... The word was {word}.\n")
-                break
+    def run(self) -> None:
+        while True:
+            self.clear_screen()
+            self.display_hidden_word()
+            print(
+                f"\n{self.guesses_left} guesses left. Already guessed: {', '.join(self.incorrect_guesses)}\n"
+            )
+            guess = self.get_letter()
+            if guess in self.word:
+                if guess not in self.correct_guesses:
+                    self.correct_guesses.append(guess)
+                    self.nb_letters_found += self.word.count(guess)
+                if self.nb_letters_found == len(self.word):
+                    print(
+                        f"\nCongrats, you found the word! The word was {self.word}.\n"
+                    )
+                    break
+            else:
+                if guess not in self.incorrect_guesses:
+                    self.incorrect_guesses.append(guess)
+                    self.guesses_left -= 1
+                if self.guesses_left == 0:
+                    print(
+                        f"\nNo guesses left... Game over... The word was {self.word}.\n"
+                    )
+                    break
 
 
 if __name__ == "__main__":
-    # hangman(with_word="fireplace")
-    hangman()
+    game = Hangman()
+    game.run()

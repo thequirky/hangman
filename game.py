@@ -8,16 +8,16 @@ class Hangman:
         self.guesses_left = NB_GUESSES
         self.incorrect_guesses = []
         self.correct_guesses = []
-        self.word = with_word.upper() or self.ui.choose_random_word()
+        self.secret_word = with_word.upper() or self.ui.choose_random_word()
 
     @property
     def nb_letters_found(self) -> int:
-        return sum(self.word.count(letter) for letter in self.correct_guesses)
+        return sum(self.secret_word.count(letter) for letter in self.correct_guesses)
 
     @property
     def revealed_word(self) -> str:
         revealed = ""
-        for letter in self.word:
+        for letter in self.secret_word:
             if letter in self.correct_guesses:
                 revealed += letter + " "
             else:
@@ -26,7 +26,7 @@ class Hangman:
 
     @property
     def found_all_letters(self) -> bool:
-        return self.nb_letters_found == len(self.word)
+        return self.nb_letters_found == len(self.secret_word)
 
     def run(self) -> None:
         while True:
@@ -34,7 +34,7 @@ class Hangman:
             self.ui.display_msg(self.revealed_word)
             self.ui.display_round_msg(self.guesses_left, self.incorrect_guesses)
             guess = self.ui.get_letter()
-            if guess in self.word:
+            if guess in self.secret_word:
                 if guess not in self.correct_guesses:
                     self.correct_guesses.append(guess)
                 if self.found_all_letters:
@@ -45,5 +45,5 @@ class Hangman:
                     self.incorrect_guesses.append(guess)
                     self.guesses_left -= 1
                 if self.guesses_left == 0:
-                    self.ui.display_loose_msg(self.word)
+                    self.ui.display_lost_msg(self.secret_word)
                     return

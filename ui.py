@@ -43,5 +43,5 @@ class UI:
         print("\nCongrats, you found the word! You won!\n")
 
     @staticmethod
-    def display_loose_msg(word: str) -> None:
+    def display_lost_msg(word: str) -> None:
         print(f"\nNo guesses left... Game over... The word was {word}.\n")

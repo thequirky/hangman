@@ -27,3 +27,21 @@ class UI:
                 if guess in VALID_LETTERS or guess in VALID_LETTERS.lower():
                     return guess.upper()
             print("Invalid guess... Use letters only.")
+
+    @staticmethod
+    def display_msg(msg: str) -> None:
+        print(msg)
+
+    @staticmethod
+    def display_round_msg(guesses_left: int, incorrect_guesses: list[str]) -> None:
+        print(
+            f"\n{guesses_left} guesses left. Already guessed: {', '.join(incorrect_guesses)}\n"
+        )
+
+    @staticmethod
+    def display_win_msg() -> None:
+        print("\nCongrats, you found the word! You won!\n")
+
+    @staticmethod
+    def display_loose_msg(word: str) -> None:
+        print(f"\nNo guesses left... Game over... The word was {word}.\n")

@@ -31,25 +31,19 @@ class Hangman:
     def run(self) -> None:
         while True:
             self.ui.clear_screen()
-            print(self.revealed_word)
-            print(
-                f"\n{self.guesses_left} guesses left. Already guessed: {', '.join(self.incorrect_guesses)}\n"
-            )
+            self.ui.display_msg(self.revealed_word)
+            self.ui.display_round_msg(self.guesses_left, self.incorrect_guesses)
             guess = self.ui.get_letter()
             if guess in self.word:
                 if guess not in self.correct_guesses:
                     self.correct_guesses.append(guess)
                 if self.found_all_letters:
-                    print(
-                        f"\nCongrats, you found the word! The word was {self.word}.\n"
-                    )
-                    break
+                    self.ui.display_win_msg()
+                    return
             else:
                 if guess not in self.incorrect_guesses:
                     self.incorrect_guesses.append(guess)
                     self.guesses_left -= 1
                 if self.guesses_left == 0:
-                    print(
-                        f"\nNo guesses left... Game over... The word was {self.word}.\n"
-                    )
-                    break
+                    self.ui.display_loose_msg(self.word)
+                    return

@@ -6,16 +6,10 @@ VALID_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 DICTIONARY = "words.txt"
 NB_GUESSES = 10
 WITH_WORD = ""
+# WITH_WORD = "LOLIPOP"
 
 
-class Hangman:
-    def __init__(self) -> None:
-        self.guesses_left = NB_GUESSES
-        self.incorrect_guesses = []
-        self.correct_guesses = []
-        self.nb_letters_found = 0
-        self.word = WITH_WORD.upper() or self.choose_random_word()
-
+class UI:
     @staticmethod
     def clear_screen() -> None:
         os.system("clear")
@@ -30,15 +24,6 @@ class Hangman:
                     words.append(word.upper())
         return random.choice(words)
 
-    def display_hidden_word(self) -> None:
-        revealed = ""
-        for letter in self.word:
-            if letter in self.correct_guesses:
-                revealed += letter + " "
-            else:
-                revealed += "_" + " "
-        print(revealed)
-
     @staticmethod
     def get_letter() -> str:
         while True:
@@ -48,19 +33,45 @@ class Hangman:
                     return guess.upper()
             print("Invalid guess... Use letters only.")
 
+
+class Hangman:
+    def __init__(self, ui: UI, with_word: str = "") -> None:
+        self.ui = ui
+        self.guesses_left = NB_GUESSES
+        self.incorrect_guesses = []
+        self.correct_guesses = []
+        self.word = with_word.upper() or self.ui.choose_random_word()
+
+    @property
+    def nb_letters_found(self) -> int:
+        return sum(self.word.count(letter) for letter in self.correct_guesses)
+
+    @property
+    def revealed_word(self) -> str:
+        revealed = ""
+        for letter in self.word:
+            if letter in self.correct_guesses:
+                revealed += letter + " "
+            else:
+                revealed += "_" + " "
+        return revealed
+
+    @property
+    def found_all_letters(self) -> bool:
+        return self.nb_letters_found == len(self.word)
+
     def run(self) -> None:
         while True:
-            self.clear_screen()
-            self.display_hidden_word()
+            self.ui.clear_screen()
+            print(self.revealed_word)
             print(
                 f"\n{self.guesses_left} guesses left. Already guessed: {', '.join(self.incorrect_guesses)}\n"
             )
-            guess = self.get_letter()
+            guess = self.ui.get_letter()
             if guess in self.word:
                 if guess not in self.correct_guesses:
                     self.correct_guesses.append(guess)
-                    self.nb_letters_found += self.word.count(guess)
-                if self.nb_letters_found == len(self.word):
+                if self.found_all_letters:
                     print(
                         f"\nCongrats, you found the word! The word was {self.word}.\n"
                     )
@@ -77,5 +88,6 @@ class Hangman:
 
 
 if __name__ == "__main__":
-    game = Hangman()
+    ui = UI()
+    game = Hangman(ui=ui, with_word=WITH_WORD)
     game.run()

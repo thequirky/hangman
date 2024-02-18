@@ -1,9 +1,7 @@
-from ui import UI
 from game import Hangman
-from config import WITH_WORD
-
+from ui import UI
 
 if __name__ == "__main__":
     ui = UI()
-    game = Hangman(ui=ui, with_word=WITH_WORD)
+    game = Hangman(ui=ui, nb_guesses=10)
     game.run()

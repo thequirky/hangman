@@ -1,14 +1,27 @@
+import random
+
 from ui import UI
-from config import NB_GUESSES
+
+DICTIONARY = "words.txt"
 
 
 class Hangman:
-    def __init__(self, ui: UI, with_word: str = "") -> None:
+    def __init__(self, ui: UI, nb_guesses: int, with_word: str = "") -> None:
         self.ui = ui
-        self.guesses_left = NB_GUESSES
+        self.guesses_left = nb_guesses
         self.incorrect_guesses = []
         self.correct_guesses = []
-        self.secret_word = with_word.upper() or self.ui.choose_random_word()
+        self.secret_word = with_word.upper() or self.choose_random_word()
+
+    @staticmethod
+    def choose_random_word() -> str:
+        words = []
+        with open(DICTIONARY) as f:
+            for line in f:
+                word = line.strip().upper()
+                if len(word) > 3:
+                    words.append(word)
+        return random.choice(words)
 
     @property
     def nb_letters_found(self) -> int:

@@ -37,7 +37,7 @@ class Hangman:
         return revealed
 
     @property
-    def found_all_letters(self) -> bool:
+    def all_letters_found(self) -> bool:
         return self.nb_letters_found == len(self.secret_word)
 
     def run(self) -> None:
@@ -49,7 +49,7 @@ class Hangman:
             if guess in self.secret_word:
                 if guess not in self.correct_guesses:
                     self.correct_guesses.append(guess)
-                if self.found_all_letters:
+                if self.all_letters_found:
                     self.ui.display_win_msg()
                     return
             else:

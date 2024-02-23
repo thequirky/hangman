@@ -1,6 +1,6 @@
-from globs import VALID_LETTERS
-
 import os
+
+VALID_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 
 class UI:

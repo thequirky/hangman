@@ -1,6 +1,8 @@
 import random
-from globs import DICTIONARY
 from ui import UI
+
+DICTIONARY = "words.txt"
+
 
 class Hangman:
     def __init__(self, ui: UI, nb_guesses: int, with_word: str = "") -> None:

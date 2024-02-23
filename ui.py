@@ -13,7 +13,7 @@ class UI:
         while True:
             guess = input("Guess a letter: ")
             if len(guess) == 1:
-                if guess in VALID_LETTERS or guess in VALID_LETTERS.lower():
+                if guess in VALID_LETTERS.upper() or guess in VALID_LETTERS.lower():
                     return guess.upper()
             print("Invalid guess... Use letters only.")
 

@@ -1,6 +1,6 @@
 import os
 
-VALID_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+VALID_LETTERS = "abcdefghijklmnopqrstuvwxyz"
 
 
 class UI:

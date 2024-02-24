@@ -1,7 +1,7 @@
 import random
 from ui import UI
 
-DICTIONARY = "words.txt"
+DICTIONARY = "dictionary.txt"
 
 
 class Hangman:

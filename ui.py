@@ -6,7 +6,7 @@ VALID_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 class UI:
     @staticmethod
     def clear_screen() -> None:
-        os.system("cls")
+        os.system("clear")
 
     @staticmethod
     def get_letter() -> str:

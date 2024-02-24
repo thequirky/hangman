@@ -1,5 +1,4 @@
 import random
-
 from ui import UI
 
 DICTIONARY = "words.txt"
@@ -18,9 +17,9 @@ class Hangman:
         words = []
         with open(DICTIONARY) as f:
             for line in f:
-                word = line.strip().upper()
-                if len(word) > 3:
-                    words.append(word)
+                word = line.strip().split("'")[0]
+                if len(word) > 3 and len(set(word)) > 1 and word.capitalize() == word:
+                    words.append(word.upper())
         return random.choice(words)
 
     @property
@@ -38,7 +37,7 @@ class Hangman:
         return revealed
 
     @property
-    def found_all_letters(self) -> bool:
+    def all_letters_found(self) -> bool:
         return self.nb_letters_found == len(self.secret_word)
 
     def run(self) -> None:
@@ -50,7 +49,7 @@ class Hangman:
             if guess in self.secret_word:
                 if guess not in self.correct_guesses:
                     self.correct_guesses.append(guess)
-                if self.found_all_letters:
+                if self.all_letters_found:
                     self.ui.display_win_msg()
                     return
             else:

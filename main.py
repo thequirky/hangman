@@ -2,7 +2,8 @@ import random
 import os
 
 DICTIONARY = "words.txt"
-VALID_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+ALPHABET = "abcdefghijklmnopqrstuvwxyz"
+VALID_LETTERS = ALPHABET + ALPHABET.upper()
 NB_GUESSES = 10
 
 
@@ -10,7 +11,7 @@ def get_letter() -> str:
     while True:
         guess = input("Guess a letter: ")
         if len(guess) == 1:
-            if guess in VALID_LETTERS.upper() or guess in VALID_LETTERS.lower():
+            if guess in VALID_LETTERS:
                 return guess.upper()
         print("Invalid guess... Use letters only.")
 
@@ -66,8 +67,8 @@ def run() -> None:
 
     while True:
         clear_screen()
-
-        reveal_word(secret_word, correct_guesses)
+        revealed = reveal_word(secret_word, correct_guesses)
+        print(revealed)
         display_round_msg(guesses_left, incorrect_guesses)
         guess = get_letter()
         if guess in secret_word:
